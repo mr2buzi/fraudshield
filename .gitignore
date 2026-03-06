@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+.DS_Store
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+.env
+.venv/
+venv/
+.runtime/
+backend/fraudshield.db
+backend/test.db
+coverage/

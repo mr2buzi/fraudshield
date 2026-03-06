@@ -1,0 +1,46 @@
+{
+  "model_version": "logreg-2026.03.06",
+  "trained_at": "2026-03-06T15:21:57.465176+00:00",
+  "intercept": -3.113975,
+  "thresholds": {
+    "medium": 0.45,
+    "high": 0.72,
+    "alert": 0.5588
+  },
+  "feature_weights": {
+    "amount_scaled": 0.823042,
+    "velocity_1h": 0.162559,
+    "velocity_24h": 0.029587,
+    "ip_risk_score": 2.104601,
+    "is_international": 0.618275,
+    "card_not_present": 0.859258,
+    "entry_mode_risk": 0.472555,
+    "merchant_category_risk": 1.015868,
+    "country_risk": 0.909261,
+    "account_email_gap": 0.413174,
+    "young_account": 0.580487
+  },
+  "feature_labels": {
+    "amount_scaled": "High transaction amount",
+    "velocity_1h": "Rapid transaction burst",
+    "velocity_24h": "High daily transaction volume",
+    "ip_risk_score": "Risky IP or device fingerprint",
+    "is_international": "International usage pattern",
+    "card_not_present": "Card-not-present transaction",
+    "entry_mode_risk": "Risky entry mode",
+    "merchant_category_risk": "Merchant category risk",
+    "country_risk": "Elevated country risk",
+    "account_email_gap": "Large account and email age mismatch",
+    "young_account": "Young customer account"
+  },
+  "metrics": {
+    "roc_auc": 0.7323,
+    "pr_auc": 0.7218,
+    "precision_at_alert": 0.7006,
+    "recall_at_alert": 0.5473
+  },
+  "baseline_stats": {
+    "average_amount": 148.6541,
+    "international_rate": 0.181
+  }
+}
