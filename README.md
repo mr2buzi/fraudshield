@@ -12,6 +12,7 @@ I designed it around the kind of problems I would expect in a financial services
 4. Persists the transaction and opens an alert automatically if the score crosses the configured threshold.
 5. Lets an analyst mark the case as fraud, mark it as legitimate, or escalate it.
 6. Tracks metrics like alert volume, review precision proxy, latency, and lightweight drift indicators.
+7. Splits the frontend into focused workspaces for `Overview`, `Alerts`, `Scoring`, and `Ops` so the analyst flow stays readable.
 
 ## Why I built it this way
 
@@ -37,7 +38,7 @@ flowchart LR
 ## Repo layout
 
 - `backend/`: FastAPI service for scoring, alerting, metrics, persistence, and audit history
-- `frontend/`: React + TypeScript analyst dashboard
+- `frontend/`: React + TypeScript analyst dashboard with separate review, scoring, and ops workspaces
 - `ml/`: training and evaluation pipeline that generates model metadata
 - `.github/workflows/ci.yml`: CI checks for backend, ML, and frontend
 - `docker-compose.yml`: local multi-service run path
@@ -136,8 +137,15 @@ Run the full stack:
 docker compose up --build
 ```
 
-In Docker Compose, the frontend is exposed on `http://localhost:4173` and the backend on `http://localhost:8010`.
-The Docker frontend now serves a production build instead of a Vite dev server.
+In Docker Compose, the default `frontend` service now runs the Vite dev server with live reload on `http://localhost:4173`, and the backend stays on `http://localhost:8010`.
+
+If I want the production-style static frontend container instead, I can run:
+
+```bash
+docker compose --profile prod up --build frontend-prod
+```
+
+That serves the production build on `http://localhost:4174`.
 
 The backend seeds deterministic demo transactions on startup so the dashboard has alerts available immediately.
 
@@ -172,6 +180,7 @@ npm run build
 - Simple but explainable scoring logic
 - Alert review workflow with auditable analyst decisions
 - Operational metrics instead of model score alone
+- A frontend layout that separates queue work, scoring, and ops monitoring into distinct views
 - A project structure that is easy to run, inspect, and discuss
 
 ## Tradeoffs

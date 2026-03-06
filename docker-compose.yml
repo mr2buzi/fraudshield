@@ -39,10 +39,33 @@ services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile.dev
+    environment:
+      VITE_API_BASE_URL: http://localhost:8010
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+    ports:
+      - "4173:4173"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:4173/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  frontend-prod:
+    profiles: ["prod"]
+    build:
+      context: ./frontend
       args:
         VITE_API_BASE_URL: http://localhost:8010
     ports:
-      - "4173:80"
+      - "4174:80"
     depends_on:
       backend:
         condition: service_healthy
@@ -54,3 +77,4 @@ services:
 
 volumes:
   postgres-data:
+  frontend-node-modules:

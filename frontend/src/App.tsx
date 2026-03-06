@@ -303,27 +303,33 @@ export default function App() {
 
   return (
     <div className="app-shell dashboard-shell">
-      <aside className="sidebar">
-        <div className="sidebar-brand">
+      <header className="console-header">
+        <div className="console-brand">
           <p className="eyebrow">FraudShield</p>
           <h1>Analyst Console</h1>
-          <p>Split into focused workspaces so scoring, triage, and ops signals stop colliding.</p>
+          <p>Clean workspace split: one place for review, one for scoring, one for ops.</p>
         </div>
-        <nav className="sidebar-nav" aria-label="Workspace Views">
+        <div className="console-session">
+          <div className="console-session-meta">
+            <span className="status-pill">Model {metrics?.model_version ?? "loading"}</span>
+            <span className="status-pill">{formatRole(session.role)}</span>
+          </div>
+          <div className="console-session-row">
+            <p>Signed in as {session.analyst_name}</p>
+            <button type="button" className="ghost-button" onClick={() => logout()}>Sign out</button>
+          </div>
+        </div>
+      </header>
+
+      <nav className="workspace-tabs" aria-label="Workspace Views">
+        <div className="workspace-tabs-row">
           {(Object.keys(viewMeta) as AppView[]).map((view) => (
-            <button key={view} type="button" className={`nav-button ${activeView === view ? "active" : ""}`} onClick={() => setActiveView(view)}>
-              <span>{viewMeta[view].eyebrow}</span>
-              <strong>{viewMeta[view].label}</strong>
+            <button key={view} type="button" className={`tab-button ${activeView === view ? "active" : ""}`} onClick={() => setActiveView(view)}>
+              {viewMeta[view].label}
             </button>
           ))}
-        </nav>
-        <section className="sidebar-session">
-          <span className="status-pill dark">Model {metrics?.model_version ?? "loading"}</span>
-          <span className="status-pill dark">{formatRole(session.role)}</span>
-          <p>Signed in as {session.analyst_name}</p>
-          <button type="button" className="ghost-button dark" onClick={() => logout()}>Sign out</button>
-        </section>
-      </aside>
+        </div>
+      </nav>
 
       <div className="content-shell">
         <header className="page-header">
@@ -364,7 +370,7 @@ export default function App() {
               {selectedAlert ? (
                 <div className="detail-stack">
                   {renderAlertHero(selectedAlert)}
-                  <button type="button" className="link-button" onClick={() => setActiveView("alerts")}>Open full alert review</button>
+                  <button type="button" className="link-button link-button-inline" onClick={() => setActiveView("alerts")}>Open full alert review</button>
                 </div>
               ) : <p className="empty-state">No alert selected yet.</p>}
             </section>
@@ -407,19 +413,31 @@ export default function App() {
                     <div className="detail-card">
                       <div className="detail-topline"><h3>Analyst Actions</h3><span className="analyst-chip">{session.analyst_name}</span></div>
                       <label>Notes<textarea value={decisionNotes} onChange={(event) => setDecisionNotes(event.target.value)} rows={4} /></label>
-                      <div className="action-row">
+                      <div className="action-row action-row-balanced">
                         <button type="button" className="confirm" disabled={isBusy} onClick={() => void handleDecision("confirm_fraud")}>Confirm Fraud</button>
                         <button type="button" className="legit" disabled={isBusy} onClick={() => void handleDecision("mark_legit")}>Mark Legit</button>
                         <button type="button" className="escalate" disabled={!canEscalate || isBusy} onClick={() => void handleDecision("escalate")} title={canEscalate ? "Escalate alert" : "Escalation requires a lead analyst or manager session"}>Escalate</button>
                       </div>
                     </div>
-                    <div className="detail-card">
+                    <div className="detail-card detail-card-compact">
                       <h3>Case Snapshot</h3>
-                      <div className="snapshot-grid">
-                        <div><span>External ID</span><strong>{selectedAlert.transaction.external_id}</strong></div>
-                        <div><span>Category</span><strong>{selectedAlert.transaction.merchant_category}</strong></div>
-                        <div><span>Model</span><strong>{selectedAlert.transaction.model_version}</strong></div>
-                        <div><span>Status</span><strong>{selectedAlert.status}</strong></div>
+                      <div className="snapshot-list">
+                        <div className="snapshot-row">
+                          <span>External ID</span>
+                          <strong>{selectedAlert.transaction.external_id}</strong>
+                        </div>
+                        <div className="snapshot-row">
+                          <span>Category</span>
+                          <strong>{selectedAlert.transaction.merchant_category}</strong>
+                        </div>
+                        <div className="snapshot-row">
+                          <span>Model</span>
+                          <strong>{selectedAlert.transaction.model_version}</strong>
+                        </div>
+                        <div className="snapshot-row">
+                          <span>Status</span>
+                          <strong>{selectedAlert.status}</strong>
+                        </div>
                       </div>
                     </div>
                   </div>
