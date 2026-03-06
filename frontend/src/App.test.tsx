@@ -104,7 +104,7 @@ describe("App", () => {
     render(<App />);
     fireEvent.click((await screen.findAllByRole("button", { name: "Unlock Console" }))[0]);
 
-    expect(await screen.findByText("FraudShield Analyst Console")).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Analyst Console" })).toBeInTheDocument();
     expect(await screen.findByText("Signed in as demo.analyst")).toBeInTheDocument();
     expect(window.localStorage.getItem("fraudshield.session")).toContain("demo.analyst");
   });
