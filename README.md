@@ -1,5 +1,7 @@
 # FraudShield
 
+[![CI](https://github.com/mr2buzi/Fraud-Detector-/actions/workflows/ci.yml/badge.svg)](https://github.com/mr2buzi/Fraud-Detector-/actions/workflows/ci.yml)
+
 FraudShield is a bank-style fraud operations platform that combines backend engineering, ML integration and product workflows. It simulates real-time card transaction scoring, creates alerts for suspicious activity, supports analyst review and exposes operational metrics as an integrated system rather than a standalone model demo.
 
 I designed it around the kind of problems I would expect in a financial services environment: risk scoring, alert triage, auditability, explainability, and operational visibility.
