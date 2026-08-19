@@ -6,6 +6,10 @@ FraudShield is a bank-style fraud operations platform that combines backend engi
 
 I designed it around the kind of problems I would expect in a financial services environment: risk scoring, alert triage, auditability, explainability, and operational visibility.
 
+## Product preview
+
+![FraudShield analyst console](docs/images/overview.png)
+
 ## What it does
 
 1. Accepts a transaction through a REST API.
