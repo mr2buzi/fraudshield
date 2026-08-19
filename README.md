@@ -1,6 +1,6 @@
 # FraudShield
 
-I built FraudShield as a bank-style fraud detection platform to show how I think about backend engineering, ML integration, and product design in one project. It simulates real-time card transaction scoring, creates alerts for suspicious activity, gives an analyst a workflow to review those alerts, and exposes operational metrics so the system feels like a real product instead of a standalone model demo.
+FraudShield is a bank-style fraud operations platform that combines backend engineering, ML integration and product workflows. It simulates real-time card transaction scoring, creates alerts for suspicious activity, supports analyst review and exposes operational metrics as an integrated system rather than a standalone model demo.
 
 I designed it around the kind of problems I would expect in a financial services environment: risk scoring, alert triage, auditability, explainability, and operational visibility.
 
@@ -18,7 +18,7 @@ I designed it around the kind of problems I would expect in a financial services
 
 - I wanted one project that covered backend, frontend, data, testing, and deployment.
 - I wanted the ML part to be integrated into an application instead of sitting in a notebook.
-- I wanted the repo to support a strong technical walkthrough around tradeoffs, not just features.
+- The repository documents architectural tradeoffs alongside features.
 - I wanted the project to look honest and reproducible, so I used synthetic and deterministic fraud-style data rather than pretending to have real bank data.
 
 ## Architecture
@@ -191,4 +191,4 @@ npm run build
 
 ## Note
 
-This is a simulated fraud operations project for portfolio and learning purposes. It is not based on proprietary banking data and is not presented as a production banking system.
+This is a simulated fraud operations project for engineering and learning purposes. It is not based on proprietary banking data and is not presented as a production banking system.
